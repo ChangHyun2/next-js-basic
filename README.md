@@ -2,26 +2,20 @@ reference : https://www.youtube.com/watch?v=EJVGzyWSCBE
 
 ## ts js
 
-파일명만 변경하면 ts 컴파일링이 적용된다.
-
 ```js
 npm i typescript @types/node @types/react --save-dev
 ```
 
 ## public
  
-static assets 관리
-server 도메인에서 파일명을 통해 곧바로 접근 가능하며
-폴더를 생성할 경우 해당 폴더로 path가 라우팅된다.
-
 ## pages
 
-index.js : root domain을 요청할 경우 렌더링된다.
-path.js : domain/path를 요청할 경우 렌더링된다.
+index.js : root domain을 요청할 경우
+path.js : domain/path를 요청할 경우
 
 ## document.js
 
-모든 page에 렌더링되는 default HTML 태그를 작성할 수 있다.
+모든 page에 렌더링되는 default HTML 마크업
 ```js
 // _document.js
 
@@ -47,7 +41,7 @@ export default class CustomDocument extends Document {
 
 ## next/js
 
-page별로 SEO에 필요한 HTML 마크업이 가능하다.
+page별로 SEO에 필요한 HTML 마크업
 
 ```js
 import Head from 'next/head';
@@ -67,29 +61,35 @@ export default function Page(){
 
 ```
 
-한편, _document 파일은 예외적으로 HTML 마크업이 필요할 때에만 사용되므로
-클라이언트에서 렌더링되지 않는다. 
+_document 파일은 예외적으로 서버렌더링을 위해 사용되는 파일이므로 
+클라이언트에서 로깅되지 않는다.
 
 서버 렌더링 시 컴포넌트를 캐싱한다.
 - 컴포넌트명이 바뀌거나
-- props, state가 바뀔 때 캐싱된 마크업을 업데이트하는 듯 하다.
+- props, state가 바뀔 때 (?)
 
-## 글로벌 css파일
+## css
 
+css file
 _app에서는 `import from 'file.css'` 형태로 import할 수 있고
+
+css module
 page에서는 css 모듈 형태로 import할 수 있다.
 
 neext.js config을 설정을 통해 변경 가능하다. 
 
-sass도 지원한다.
+sass 지원
+sass도 지원한다
+
+<style jsx></style>
 
 ## api 폴더
 
-api 폴더에서 api 작성이 가능하다 ㅁ..ㅊ...
-api 폴더에서만! 가능하다.
+api 폴더에서 api 작성 가능
+api 폴더에서만! 가능
 
-req, res의 여러 메소드를 이용해 메세지를 작성하고 응답할 수 있다.
-node.js res에 합성한 것 같다.
+NextApiRequest, NextApiResponse
+node.js에서 extends한듯
 
 ```js
 
@@ -137,7 +137,8 @@ href="../path2" => 이동 가능
 
 **[name].tsx**
 
-[name].tsx으로 파일명을 작성할 경우, 파일명에 대응되는 모든 url에 의해 라우팅된다. (webpack [name].[hash].js와 유사한 개념)
+[name].tsx으로 파일명을 작성할 경우, 파일명에 대응되는 모든 url에 의해 라우팅된다.
+(webpack [name].[hash].js)
 
 ```js
 directory
@@ -163,10 +164,7 @@ url : directory/name3/name4 (directory/[name]/[name].tsx)
 위치한 곳으로부터 모든 하위 paths를 커버한다.
 router.query를 사용할 경우 하위 paths가 배열로 담겨진다.
 
-위치한 곳을 포함할 경우 [[...name]].tsx으로 작성한다.
-
-fallback 라우팅
-
+위치한 곳을 포함할 경우 [[...name]].tsx으로 작성
 
 ## alias
 
@@ -179,4 +177,15 @@ js/tsconfig.json 파일만 작성하면 웹팩 alias까지 수정해주는 듯
       "utils": ["utils/index.js"]
     },
 ```
+
+## getStaticProps
+
+서버에서 미리 fetch할 데이터를 가져와 서버렌더링할 컴포넌트에 props 전달
+getStaticProps => getStaticPaths => 컴포넌트 서버렌더링 => 캐싱
+
+## getStaticPaths
+
+서버에서 정적 paths에 대한 페이지 캐싱
+fallback이 true일 경우 path가 요청될 떄마다 캐싱
+
 
